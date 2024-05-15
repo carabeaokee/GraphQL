@@ -1,14 +1,26 @@
-import Navbar from "@/app/components/navbar";
-import MediaList from "@/app/graphql/queries";
+"use client";
+import React from "react";
+import { useQuery } from "@apollo/client";
+import { MEDIA_QUERY } from "@/graphql/queries";
+import ListCard from "@/components/ListCard";
 
 export default function AnimeList() {
+  const { loading, error, data } = useQuery(MEDIA_QUERY, {
+    variables: {
+      type: "ANIME",
+      isAdult: false,
+      perPage: 25,
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <br />
-        <h1>This is the Anime List</h1>
-        <MediaList />
-      </div>
-    </main>
+    <div className="grid grid-cols-5 gap-4">
+      {data.Page.media.map((media) => (
+        <ListCard {...media} />
+      ))}
+    </div>
   );
 }

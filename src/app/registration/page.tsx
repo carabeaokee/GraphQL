@@ -2,10 +2,9 @@
 import React from "react";
 import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/app/config/firebase";
+import { auth } from "@/config/firebase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Navbar from "@/app/components/navbar";
 
 const Rego = () => {
   const [errorMessage, setErrorMessage] = useState("");

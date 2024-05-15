@@ -3,10 +3,9 @@
 import React from "react";
 import { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/app/config/firebase";
+import { auth } from "@/config/firebase";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import Navbar from "@/app/components/navbar";
 
 const Login = () => {
   // Using the useState hook from React to manage the email and password state
@@ -35,7 +34,7 @@ const Login = () => {
       setPassword("");
 
       // Getting the redirect query parameter
-      const redirect = searchParams.get("redirect");
+      const redirect = searchParams?.get("redirect");
 
       // Redirecting the user to the redirect URL or the home page
       router.push(redirect || "/");

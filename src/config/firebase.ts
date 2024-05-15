@@ -13,7 +13,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
-console.log(process.env.VITE_API_KEY);
+// console.log(process.env.VITE_API_KEY);
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

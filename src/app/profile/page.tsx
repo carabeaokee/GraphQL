@@ -1,8 +1,7 @@
 "use client";
-
+import React from "react";
 import { useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import Navbar from "@/app/components/navbar";
 
 // Defining a functional component for the profile page
 export default function ProfilePage() {

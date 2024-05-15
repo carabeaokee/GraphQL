@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar";
-import ApolloWrapper from "./components/ApolloWrapper";
+import Navbar from "../components/navbar";
+import ApolloWrapper from "../components/ApolloWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,3 +27,25 @@ export default function RootLayout({
     </html>
   );
 }
+
+// import React from "react";
+// import * as ReactDOM from "react-dom/client";
+// import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+// import App from "./App";
+// import RootLayout from "./layout";
+
+// const client = new ApolloClient({
+//   uri: "https://current--anilist-graph-2024.apollographos.net/graphql",
+//   cache: new InMemoryCache(),
+// });
+
+// // Supported in React 18+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// root.render(
+//   <ApolloProvider client={client}>
+//     <RootLayout>
+//       <App />
+//     </RootLayout>
+//   </ApolloProvider>
+// );

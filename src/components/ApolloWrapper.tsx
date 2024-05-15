@@ -1,16 +1,11 @@
 "use client";
-import {
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React, { PropsWithChildren } from "react";
 import { MEDIA_QUERY } from "../graphql/queries";
 
 function ApolloWrapper({ children }: PropsWithChildren) {
   const client = new ApolloClient({
-    uri: "https://current--anilist-graph-2024.apollographos.net/graphql",
+    uri: "https://graphql.anilist.co",
     cache: new InMemoryCache(),
   });
   client
