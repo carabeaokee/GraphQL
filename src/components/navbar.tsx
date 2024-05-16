@@ -28,7 +28,7 @@ const Navbar = () => {
     }
   };
 
-  const handleFavoritesClick = (e: { preventDefault: () => void }) => {
+  const handleProfileClick = (e: { preventDefault: () => void }) => {
     if (!user) {
       e.preventDefault();
       router.push("/authorization");
@@ -45,7 +45,7 @@ const Navbar = () => {
           <Link href="/login">Login</Link>
         )}
         <Link href="/animelist">Popular Anime</Link>
-        <Link href="/favorites" onClick={handleFavoritesClick}>
+        <Link href="/favorites" onClick={handleProfileClick}>
           My Favorites
         </Link>
       </div>

@@ -7,7 +7,9 @@ const ListCard = ({ genres, id, title, coverImage, seasonYear }) => (
       <img className="w-full" src={coverImage.large} alt={title.english} />
     </Link>
     <div className="px-6 py-4">
-      <div className="font-bold text-xl mb-2">{title.english}</div>
+      <div className="font-bold text-xl mb-2">
+        {title.english ? title.english : title.romaji}
+      </div>
       <p className="text-gray-700 text-base">Season Year: {seasonYear}</p>
     </div>
     <div className="px-6 pt-4 pb-2">

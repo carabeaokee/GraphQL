@@ -3,8 +3,15 @@
 import { gql } from "@apollo/client";
 
 export const MEDIA_QUERY = gql`
-  query Media($type: MediaType, $isAdult: Boolean, $perPage: Int) {
-    Page(perPage: $perPage) {
+  query Media($type: MediaType, $isAdult: Boolean, $perPage: Int, $page: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
       media(type: $type, isAdult: $isAdult) {
         id
         seasonYear
@@ -18,12 +25,46 @@ export const MEDIA_QUERY = gql`
         title {
           english
           romaji
-          native
         }
       }
     }
   }
 `;
+export const MEDIA_DETAILS_QUERY = gql`
+  query Query($mediaId: Int) {
+    Media(id: $mediaId) {
+      id
+      title {
+        english
+        romaji
+        native
+      }
+      meanScore
+      averageScore
+      popularity
+      genres
+      seasonYear
+      format
+      status
+      description
+      startDate {
+        year
+      }
+      endDate {
+        year
+      }
+      episodes
+      duration
+      coverImage {
+        large
+      }
+      bannerImage
+      genres
+      isFavourite
+    }
+  }
+`;
+
 // function MediaList() {
 //   const { loading, error, data } = useQuery(MEDIA_QUERY, {
 //     variables: {
