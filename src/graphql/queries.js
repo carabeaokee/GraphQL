@@ -3,7 +3,15 @@
 import { gql } from "@apollo/client";
 
 export const MEDIA_QUERY = gql`
-  query Media($type: MediaType, $isAdult: Boolean, $perPage: Int, $page: Int) {
+  query Media(
+    $type: MediaType
+    $isAdult: Boolean
+    $perPage: Int
+    $page: Int
+    $id: Int
+    $search: String
+    $sort: [MediaSort]
+  ) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         total
@@ -12,7 +20,13 @@ export const MEDIA_QUERY = gql`
         lastPage
         hasNextPage
       }
-      media(type: $type, isAdult: $isAdult) {
+      media(
+        type: $type
+        isAdult: $isAdult
+        id: $id
+        search: $search
+        sort: $sort
+      ) {
         id
         seasonYear
         coverImage {

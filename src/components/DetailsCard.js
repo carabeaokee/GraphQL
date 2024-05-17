@@ -6,8 +6,8 @@ const DetailsCard = ({ data }) => {
 
   return (
     <>
-      <img src={media.bannerImage} alt="Banner Image" />
       <div>
+        <img src={media.bannerImage} alt="Banner Image" />
         <img src={media.coverImage.large} alt={media.title.english} />
         <h1>{media.title.english}</h1>
         <h2>{media.title.romaji}</h2>
