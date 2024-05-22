@@ -26,7 +26,6 @@ const DetailsCard = ({ data }) => {
         <p>End Year: {media.endDate.year}</p>
         <p>Episodes: {media.episodes}</p>
         <p>Duration: {media.duration}</p>
-        <img src={media.bannerImage} alt="Banner Image" />
         {/* <p>Is Favourite: {media.isFavourite ? 'Yes' : 'No'}</p> */}
       </div>
     </>

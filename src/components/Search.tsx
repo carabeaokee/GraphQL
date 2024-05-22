@@ -1,72 +1,50 @@
 "use client";
+import { useState, useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
+import { useDebounce } from "use-debounce";
 
 export function Search() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("query")?.toString() || ""
+  );
 
-  const handleSearch = useDebouncedCallback((term: string) => {
-    console.log(`Searching... ${term}`);
-    const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
+  useEffect(() => {
+    setSearchTerm(""); // clear the search term when the pathname changes
+  }, [pathname]);
 
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
 
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
-
+  const executeSearchOnClick = () => {
+    console.log(`Searching... ${debouncedSearchTerm}`);
+    replace(`/search-results?query=${debouncedSearchTerm}`);
+  };
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search"
-        onChange={(e) => handleSearch(e.target.value)}
-        defaultValue={searchParams.get("query")?.toString()}
-      />
-    </div>
+    <>
+      <div>
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          value={searchTerm}
+        />
+        <button onClick={executeSearchOnClick}>Enter</button>
+      </div>
+    </>
   );
 }
 
-// "use client";
-// import { usePathname, useRouter, useSearchParams } from "next/navigation";
-// import { useDebouncedCallback } from "use-debounce";
-// import { useState } from "react";
+// const handleSearch = useDebouncedCallback((term: string) => {
+//   console.log(`Searching... ${term}`);
+//   const params = new URLSearchParams(searchParams);
+//   params.set("page", "1");
 
-// export function Search({ onSearch }) {
-//   const [inputValue, setInputValue] = useState("");
-//   const searchParams = useSearchParams();
-//   const { replace } = useRouter();
-//   const pathname = usePathname();
+//   if (term) {
+//     params.set("query", term);
+//   } else {
+//     params.delete("query");
+//   }
 
-//   const handleSearch = useDebouncedCallback((term: string) => {
-//     console.log(`Searching... ${term}`);
-//     const params = new URLSearchParams(searchParams);
-//     params.set("page", "1");
-
-//     if (term) {
-//       params.set("query", term);
-//     } else {
-//       params.delete("query");
-//     }
-
-//     replace(`${pathname}?${params.toString()}`);
-//     onSearch(term);
-//   }, 300);
-
-//   return (
-//     <div>
-//       <input
-//         type="text"
-//         placeholder="Search"
-//         onChange={(e) => handleSearch(e.target.value)}
-//         defaultValue={searchParams.get("query")?.toString()}
-//       />
-//     </div>
-//   );
-// }
+//   replace(`${pathname}?${params.toString()}`);

@@ -8,9 +8,12 @@ import { useRouter } from "next/navigation";
 import { Search } from "@/components/Search";
 
 const Navbar = () => {
+  // State to hold the user object
   const [user, setUser] = useState<User | null>(null);
+  // Next.js hook that gives us access to the router object
   const router = useRouter();
 
+  // useEffect hook to set up a subscription to the Firebase Auth service
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => setUser(user));
 
@@ -18,6 +21,7 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
+  // Function to handle the logout
   const handleLogout = async () => {
     if (auth) {
       try {
@@ -29,10 +33,13 @@ const Navbar = () => {
     }
   };
 
+  // Function to handle the profile click
   const handleProfileClick = (e: { preventDefault: () => void }) => {
     if (!user) {
+      // Prevent accessing favorites if not user
       e.preventDefault();
-      router.push("/authorization");
+      // Redirect to the redirection page
+      router.push("/redirection");
     }
   };
 
