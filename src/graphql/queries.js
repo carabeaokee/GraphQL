@@ -11,6 +11,7 @@ export const MEDIA_QUERY = gql`
     $id: Int
     $search: String
     $sort: [MediaSort]
+    $genreIn: [String]
   ) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
@@ -26,6 +27,7 @@ export const MEDIA_QUERY = gql`
         id: $id
         search: $search
         sort: $sort
+        genre_in: $genreIn
       ) {
         id
         seasonYear

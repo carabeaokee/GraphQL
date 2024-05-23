@@ -1,3 +1,4 @@
+//  function generates a pagination array based on the current page and the total number of pages
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.
@@ -5,14 +6,12 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
-  // If the current page is among the first 3 pages,
-  // show the first 3, an ellipsis, and the last 2 pages.
+  // If the current page is among the first 4 pages, show the first 5 pages and an ellipsis.
   if (currentPage <= 4) {
     return [1, 2, 3, 4, 5, "...", totalPages];
   }
 
-  // If the current page is among the last 3 pages,
-  // show the first 2, an ellipsis, and the last 3 pages.
+  // If the current page is among the last 4 pages, show an ellipsis, the last 5 pages.
   if (currentPage >= totalPages - 3) {
     return [
       1,
@@ -25,9 +24,7 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     ];
   }
 
-  // If the current page is somewhere in the middle,
-  // show the first page, an ellipsis, the current page and its neighbors,
-  // another ellipsis, and the last page.
+  // If the current page is among the middle pages, show an ellipsis on both sides.
   return [
     1,
     "...",

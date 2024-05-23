@@ -1,28 +1,47 @@
 "use client";
 import React from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { db } from "@/config/firebase";
+import { doc } from "firebase/firestore";
+import "firebase/auth"; // Import Firebase Authentication
+import "firebase/firestore"; // Import Firestore
 
 // Defining a functional component for the profile page
 export default function ProfilePage() {
   // Using the useRouter hook from Next.js to get the router object
   const router = useRouter();
+  const [favorites, setFavorites] = useState([]);
+  const [queue, setQueue] = useState([]);
+  const [watched, setWatched] = useState([]);
 
   useEffect(() => {
     // Getting the user item from the session storage
     const user = sessionStorage.getItem("user");
-
-    // Using the usePathname and useSearchParams hooks to get the current path and search parameters
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    // Constructing the current URL
     const currentPath = `${pathname}?${searchParams.toString()}`;
-
-    // If the user is not logged in, redirecting them to the login page
-    // The current URL is added as a redirect query parameter
     if (!user) {
       router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
     }
+
+    const userDocRef = doc(db, "users", user.uid);
+
+    userDocRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          setFavorites(userData.favorites);
+          setQueue(userData.queue);
+          setWatched(userData.watched);
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error: any) => {
+        console.log("Error getting document:", error);
+      });
   }, []); // The empty array means this effect will only run once when the component mounts
 
   return (

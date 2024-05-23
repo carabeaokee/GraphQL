@@ -12,21 +12,21 @@ const DetailsCard = ({ data }) => {
         <h1>{media.title.english}</h1>
         <h2>{media.title.romaji}</h2>
         <h2>{media.title.native}</h2>
-        <p>Mean Score: {media.meanScore}</p>
-        <p>Average Score: {media.averageScore}</p>
-        <p>Popularity: {media.popularity}</p>
-        <p>Genres: {media.genres.join(", ")}</p>
-        <p>Season Year: {media.seasonYear}</p>
-        <p>Format: {media.format}</p>
-        <p>Status: {media.status}</p>
-        {media.description.split("<br>").map((item, key) => {
-          return <p key={key}>{item}</p>;
-        })}
-        <p>Start Year: {media.startDate.year}</p>
-        <p>End Year: {media.endDate.year}</p>
-        <p>Episodes: {media.episodes}</p>
-        <p>Duration: {media.duration}</p>
-        {/* <p>Is Favourite: {media.isFavourite ? 'Yes' : 'No'}</p> */}
+        {media.meanScore && <p>Mean Score: {media.meanScore}</p>}
+        {media.averageScore && <p>Average Score: {media.averageScore}</p>}
+        {media.popularity && <p>Popularity: {media.popularity}</p>}
+        {media.genres && <p>Genres: {media.genres.join(", ")}</p>}
+        {media.seasonYear && <p>Season Year: {media.seasonYear}</p>}
+        {media.format && <p>Format: {media.format}</p>}
+        {media.status && <p>Status: {media.status}</p>}
+        {media.description &&
+          media.description.split("<br>").map((item, key) => {
+            return <p key={key}>{item}</p>;
+          })}
+        {media.startDate.year && <p>Start Year: {media.startDate.year}</p>}
+        {media.endDate.year && <p>End Year: {media.endDate.year}</p>}
+        {media.episodes && <p>Episodes: {media.episodes}</p>}
+        {media.duration && <p>Duration: {media.duration}</p>}
       </div>
     </>
   );

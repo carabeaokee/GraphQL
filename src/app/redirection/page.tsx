@@ -33,6 +33,7 @@ const Redirection = () => {
     } else if (startRedirect && redirectCountdown === 0) {
       router.push("/login");
     }
+    // Cleanup timer
     return () => {
       clearTimeout(timer);
     };

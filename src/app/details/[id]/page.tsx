@@ -6,12 +6,12 @@ import React from "react";
 import DetailsCard from "@/components/DetailsCard";
 
 export default function DetailsPage() {
-  //   const { id } = useParams();
-
+  // Get the media id from the URL
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
   console.log(id);
 
+  // Fetch the media details using the media id
   const { loading, error, data } = useQuery(MEDIA_DETAILS_QUERY, {
     variables: {
       mediaId: id,

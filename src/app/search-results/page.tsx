@@ -4,10 +4,13 @@ import { useQuery } from "@apollo/client";
 import { MEDIA_QUERY } from "@/graphql/queries";
 import ListCard from "../../components/ListCard";
 
+//  component responsible for displaying search results
 export default function SearchResults() {
+  // useSearchParams hook to get the search query from the URL
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get("query") || "";
 
+  // useQuery hook to fetch data from the GraphQL API
   const { data, loading, error } = useQuery(MEDIA_QUERY, {
     variables: {
       page: 1,
@@ -18,6 +21,7 @@ export default function SearchResults() {
     },
   });
 
+  // filter the data based on the search term
   const filteredMedia = data?.Page?.media?.filter(
     (anime: Anime) =>
       (anime.title.english &&
@@ -25,10 +29,6 @@ export default function SearchResults() {
       (anime.title.romaji &&
         anime.title.romaji.toLowerCase().includes(searchTerm.toLowerCase()))
   );
-
-  console.log("Data:", data);
-  console.log("Search term:", searchTerm);
-  console.log("Filtered media:", filteredMedia);
 
   interface Anime {
     id: string;

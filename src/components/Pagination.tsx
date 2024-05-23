@@ -10,14 +10,17 @@ import { usePathname, useSearchParams } from "next/navigation";
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  // Get the current page from the URL query parameters
   const currentPage = Number(searchParams.get("page")) || 1;
 
+  // Function to create a URL with the new page number
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
     return `${pathname}?${params.toString()}`;
   };
 
+  // Generate the pagination array
   const allPages = generatePagination(currentPage, totalPages);
 
   return (

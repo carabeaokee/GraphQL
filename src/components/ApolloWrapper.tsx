@@ -2,13 +2,12 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React, { PropsWithChildren, useState } from "react";
 import { MEDIA_QUERY } from "../graphql/queries";
-// import { Search } from "@/components/Search";
-// import AnimeList from "@/app/animelist/page";
 
+// ApolloWrapper component
 function ApolloWrapper({ children }: PropsWithChildren) {
-  const [searchTerm, setSearchTerm] = useState("");
-
+  // Creating a new Apollo Client
   const cache = new InMemoryCache({
+    // Merging the incoming data with the existing data
     typePolicies: {
       Query: {
         fields: {
@@ -31,10 +30,13 @@ function ApolloWrapper({ children }: PropsWithChildren) {
     },
   });
 
+  // Creating a new Apollo Client
   const client = new ApolloClient({
     uri: "https://graphql.anilist.co",
+    // Using the cache created above
     cache,
   });
+  // Fetching the media data
   client.query({
     query: MEDIA_QUERY,
     variables: {
